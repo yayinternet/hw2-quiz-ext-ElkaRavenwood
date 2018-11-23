@@ -12,9 +12,66 @@ const MATCH_LIST = {
 
 function transformTextNodes(node) {
   // TODO(you): Implement this function! See HW spec for details.
+  var words = [];
+  var count = 0;
+  var newString = "";
+  
+  // Checks to see if it is the node has children
+  var children = node.childNodes;
+
+  // If the node has no children
+  if (children[0] === undefined || children.length == 0) {
+
+    // ChecksIf node is a text node
+    if (node.nodeType == Node.TEXT_NODE) {
+      
+      // console.log("4 " + node.nodeType);
+
+      // Gets text content after removing whitespace at ends
+      var text = node.textContent.trim();
+
+      console.log("5 " + text);
+
+      // Splits words by spaces
+      var words = text.split(" ");
+      for (var i = 0; i < words.length; i ++) {
+        // Trims resultant word
+        words[i] = words[i].trim();
+        // If blank, removes element
+        if (words[i] == "" || words[i] === undefined) {
+          words.splice(i,1);
+          // Detracts from counter
+          i--;
+        }
+        console.log("6 " + words[i]);
+      }
+      
+      for (var i = 0; i < words.length; i ++) {
+        // If the word exists in MATCH_LIST, changes the word.
+        if (words[i] in MATCH_LIST){
+          console.log("7 " + MATCH_LIST[words[i]]);
+          newString += MATCH_LIST[words[i]] + " ";
+        // Other wise keeps in string
+        } else {
+          newString += words[i] + " ";
+        }
+      }
+      node.textContent = newString;
+     
+    }
+  // If the node has children  
+  } else {
+    // Calls transformTextNodes recursively
+    for (var i = 0; i < children.length; i ++) {
+      transformTextNodes(children[i]);
+    }
+  }
+ 
 }
 
 transformTextNodes(document.body);
 
 // Log statement to test that the extension loaded properly.
 console.log('Evil extension loaded!');
+
+console.log('Extension Updated!');
