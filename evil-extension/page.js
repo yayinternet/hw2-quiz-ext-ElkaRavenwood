@@ -25,12 +25,8 @@ function transformTextNodes(node) {
     // ChecksIf node is a text node
     if (node.nodeType == Node.TEXT_NODE) {
       
-      // console.log("4 " + node.nodeType);
-
       // Gets text content after removing whitespace at ends
       var text = node.textContent.trim();
-
-      console.log("5 " + text);
 
       // Splits words by spaces
       var words = text.split(" ");
@@ -43,13 +39,11 @@ function transformTextNodes(node) {
           // Detracts from counter
           i--;
         }
-        console.log("6 " + words[i]);
       }
       
       for (var i = 0; i < words.length; i ++) {
         // If the word exists in MATCH_LIST, changes the word.
         if (words[i] in MATCH_LIST){
-          console.log("7 " + MATCH_LIST[words[i]]);
           newString += MATCH_LIST[words[i]] + " ";
         // Other wise keeps in string
         } else {
